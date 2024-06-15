@@ -3,6 +3,7 @@ import loginIcons from '../assets/signin.gif'
 import { IoEyeOffSharp } from "react-icons/io5";
 import {Link} from "react-router-dom";
 import imageToBase64 from '../helpers/imageToBase64';
+import summeryApi from '../common';
 
 const SignUp = () => {
   const [showPassword,setShowPassword]= useState(false)
@@ -41,8 +42,24 @@ const handleUploadPic = async(e)=>{
   console.log("form data" ,data)
 
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault()
+
+    if(data.password === data.confirmPassword){
+      const dataResponse = await fetch(summeryApi.signUP.url,{
+        method: summeryApi.signUP.method,
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const dataApi = await dataResponse.json()
+      console.log('data', dataApi)
+    }
+    else{
+      console.log('Passwords do not match')
+    }
+
 
   }
   return (
