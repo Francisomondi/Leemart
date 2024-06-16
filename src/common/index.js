@@ -4,6 +4,11 @@ const summeryApi= {
         url: `${BackendDomain}/api/signup`,
         method: "post"
 
+    },
+    signIn:{
+        url: `${BackendDomain}/api/signin`,
+        method: "post"
+
     }
 }
 

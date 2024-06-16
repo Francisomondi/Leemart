@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import loginIcons from '../assets/signin.gif'
 import { IoEyeOffSharp } from "react-icons/io5";
 import {Link} from "react-router-dom";
+import summeryApi from '../common';
 
 const Login = () => {
 
@@ -23,8 +24,28 @@ const Login = () => {
 
   console.log("form data" ,data)
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault()
+
+    const dataResponse = await fetch(summeryApi.signIn.url,{
+      method: summeryApi.signIn.method,
+      headers: {
+         'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      
+    })
+
+    const dataApi = await dataResponse.json()
+
+    if(dataApi.success){
+      toast.success(dataApi.message)
+      navigate("/home")
+    }
+
+     if(dataApi.error){
+      toast.error(dataApi.message)
+    }
 
   }
 

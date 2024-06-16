@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import loginIcons from '../assets/signin.gif'
 import { IoEyeOffSharp } from "react-icons/io5";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import imageToBase64 from '../helpers/imageToBase64';
 import summeryApi from '../common';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [showPassword,setShowPassword]= useState(false)
@@ -16,6 +17,8 @@ const SignUp = () => {
     profilePic: ''
 
   })
+
+  const navigate = useNavigate()
 
   const handleOnChange = (e)=>{
     const {name,value} = e.target
@@ -39,8 +42,6 @@ const handleUploadPic = async(e)=>{
   })
 
 }
-  console.log("form data" ,data)
-
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -53,15 +54,23 @@ const handleUploadPic = async(e)=>{
         },
         body: JSON.stringify(data)
       })
+
       const dataApi = await dataResponse.json()
-      console.log('data', dataApi)
+      
+      if(dataApi.success){
+        toast.success(dataApi.message)
+        navigate("/login")
+      }
+
+       if(dataApi.error){
+        toast.error(dataApi.message)
+      }
     }
     else{
-      console.log('Passwords do not match')
+      toast("passwords do not match")
     }
-
-
   }
+  
   return (
     <section id='signup'>
       <div className='mx-auto container p-4'>
