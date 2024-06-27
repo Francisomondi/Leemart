@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import loginIcons from '../assets/signin.gif'
 import { IoEyeOffSharp } from "react-icons/io5";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import summeryApi from '../common';
+import { toast } from 'react-toastify';
+import Context from '../context';
 
 const Login = () => {
 
@@ -12,6 +14,11 @@ const Login = () => {
     password: ''
   })
 
+  const navigate = useNavigate()
+  const {fetchUserDetails} = useContext(Context)
+
+  
+
   const handleOnChange = (e)=>{
     const {name,value} = e.target
     setData((preve)=>{
@@ -20,6 +27,8 @@ const Login = () => {
         [name]: value
       }
     })
+
+
   }
 
   console.log("form data" ,data)
@@ -29,9 +38,10 @@ const Login = () => {
 
     const dataResponse = await fetch(summeryApi.signIn.url,{
       method: summeryApi.signIn.method,
+      credentials: 'include',
       headers: {
-         'content-type': 'application/json'
-      },
+         'Content-Type': 'application/json'
+      },  
       body: JSON.stringify(data)
       
     })
@@ -39,8 +49,12 @@ const Login = () => {
     const dataApi = await dataResponse.json()
 
     if(dataApi.success){
+      
       toast.success(dataApi.message)
-      navigate("/home")
+      navigate("/")
+      fetchUserDetails()
+      
+     
     }
 
      if(dataApi.error){

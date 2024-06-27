@@ -1,20 +1,58 @@
-
 import { Outlet } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import summeryApi from './common';
+import Context from './context';
+
 
 function App() {
+
+  const fetchUserDetails = async () => {
+
+    try {
+      const dataResponse = await fetch(summeryApi.currentUser.url, {
+        method: summeryApi.currentUser.method,
+        credentials: 'include',
+      });
+
+      if (!dataResponse.ok) {
+        const errorResponse = await dataResponse.json();
+        throw new Error(errorResponse.message || 'Failed to fetch user details');
+      }
+
+      const userData = await dataResponse.json();
+      console.log('data-user', userData);
+       
+      // Additional logic to handle the userData will be added here
+
+      
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      toast.error('Error fetching user details: ' + error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails()
+    
+  }, []);
+
   return (
     <>
-    <ToastContainer />
-    <Header/>
-    <main className='min-h-[calc(100vh-120px)]'>
-      <Outlet/>
-    </main>
-    <Footer/>
+      <Context.Provider value={{ fetchUserDetails }}>
+        <ToastContainer />
+        <Header />
+        <main className='min-h-[calc(100vh-120px)]'>
+          <Outlet />
+          
+        </main>
+        <Footer />
+      </Context.Provider>
+     
     </>
   );
 }

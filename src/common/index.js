@@ -1,4 +1,5 @@
 const BackendDomain = "http://localhost:8000"
+
 const summeryApi= {
     signUP:{
         url: `${BackendDomain}/api/signup`,
@@ -8,8 +9,13 @@ const summeryApi= {
     signIn:{
         url: `${BackendDomain}/api/signin`,
         method: "post"
-
-    }
+    },
+    currentUser:{
+        url: `${BackendDomain}/api/user-details`,
+        method: "get"
+    }    
 }
+
+
 
 export default summeryApi
