@@ -7,9 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import summeryApi from './common';
 import Context from './context';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from './store/userSlice';
 
 
 function App() {
+
+const dispatch = useDispatch()
 
   const fetchUserDetails = async () => {
 
@@ -21,10 +25,14 @@ function App() {
 
       if (!dataResponse.ok) {
         const errorResponse = await dataResponse.json();
-        throw new Error(errorResponse.message || 'Failed to fetch user details');
+        throw new Error(errorResponse.message || 'Failed to fetch user details')
       }
 
-      const userData = await dataResponse.json();
+      const userData = await dataResponse.json()
+
+      if (userData.success) {
+        dispatch(setUserDetails(userData.data))
+      }
       console.log('data-user', userData);
        
       // Additional logic to handle the userData will be added here

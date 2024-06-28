@@ -4,9 +4,13 @@ import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
 import {Link} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 
 const Header = () => {
+const user = useSelector(state=>state?.user?.user)
+console.log('payload',user)
+
   return (
     <header className='h-16 shadow-md bg-white'>
       <div className='h-full container mx-auto flex items-center px-4 justify-between'>
@@ -22,8 +26,15 @@ const Header = () => {
         </div>
 
         <div className='flex items-center gap-7'>
-          <div className='text-2xl cursor-pointer'>
-          <FaRegUser />
+          <div className='text-3xl cursor-pointer'>
+            {
+              user?.profilePic?(
+                <img src={ user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name}/>
+              ):(
+                  <FaRegUser />
+              )
+            }
+          
           </div>
 
           <div className='text-2xl cursor-pointer relative'>
