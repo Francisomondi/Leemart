@@ -5,12 +5,32 @@ import { FaRegUser } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import summeryApi from '../common';
+import { toast } from 'react-toastify';
 
 
 const Header = () => {
 const user = useSelector(state=>state?.user?.user)
 console.log('payload',user)
 
+
+const handleSignOut = async  () =>{
+ const deleteData = await fetch(summeryApi.signOut.url,{
+    method: summeryApi.signOut.method,
+    credentials: 'include'
+ })
+
+ const data = await deleteData.json()
+
+ if (data.success) {
+  toast.success(data.message)
+  
+ }
+ if (data.error) {
+  toast.error(data.error)
+  
+ }
+}
   return (
     <header className='h-16 shadow-md bg-white'>
       <div className='h-full container mx-auto flex items-center px-4 justify-between'>
@@ -45,9 +65,18 @@ console.log('payload',user)
           </div>
 
           <div>
-            <Link to={"/login"}><button className='px-3 py-1 text-white bg-red-600 hover:bg-red-800  rounded-full'>log in</button></Link>
+            {
+              user?._id?(
+                  <button onClick={handleSignOut} className='px-3 py-1 text-white bg-red-600 hover:bg-red-800  rounded-full'>log out</button>
+              ):(
+                <Link to={"/login"}>
+                  <button className='px-3 py-1 text-white bg-red-600 hover:bg-red-800  rounded-full'>log in</button>
+               </Link>
+              )
+            }
             
-            <button className='px-3 py-1 text-white bg-red-600 hover:bg-red-800  rounded-full'>log out</button>
+            
+            
           </div>
         </div>
 

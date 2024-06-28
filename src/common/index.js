@@ -13,6 +13,10 @@ const summeryApi= {
     currentUser:{
         url: `${BackendDomain}/api/user-details`,
         method: "get"
+    },
+    signOut: {
+        url: `${BackendDomain}/api/signout`,
+        method: 'get'
     }    
 }
 
