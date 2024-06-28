@@ -4,12 +4,15 @@ import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
 import {Link} from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import summeryApi from '../common';
 import { toast } from 'react-toastify';
+import { setUserDetails } from '../store/userSlice';
 
 
 const Header = () => {
+  const dispatch = useDispatch()
+
 const user = useSelector(state=>state?.user?.user)
 console.log('payload',user)
 
@@ -24,6 +27,7 @@ const handleSignOut = async  () =>{
 
  if (data.success) {
   toast.success(data.message)
+  dispatch(setUserDetails(null))
   
  }
  if (data.error) {
