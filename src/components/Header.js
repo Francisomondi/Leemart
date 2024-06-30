@@ -16,7 +16,7 @@ const Header = () => {
 
 
 const user = useSelector(state=>state?.user?.user)
-console.log('payload',user)
+//console.log('payload',user)
 
 
 const handleSignOut = async  () =>{
@@ -72,7 +72,7 @@ const handleSignOut = async  () =>{
                           </Link>
                         </nav>
                 </div>
-
+ 
                   )
                 }
                 

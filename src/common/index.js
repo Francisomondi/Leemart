@@ -17,7 +17,11 @@ const summeryApi= {
     signOut: {
         url: `${BackendDomain}/api/signout`,
         method: 'get'
-    }    
+    } ,
+    Allusers: {
+        url: `${BackendDomain}/api/all-users`,
+        method: 'get'
+    }   
 }
 
 

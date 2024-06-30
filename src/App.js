@@ -33,7 +33,7 @@ const dispatch = useDispatch()
       if (userData.success) {
         dispatch(setUserDetails(userData.data))
       }
-      console.log('data-user', userData);
+      //console.log('data-user', userData);
        
       // Additional logic to handle the userData will be added here
 
