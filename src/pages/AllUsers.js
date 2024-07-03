@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import summeryApi from '../common'
 import { toast } from 'react-toastify';
+import moment from 'moment';
+import {MdModeEdit} from 'react-icons/md'
+import ChangeUserRole from '../components/ChangeUserRole';
+
 
 const AllUsers = () => {
  
     const [allUsers, setAllUsers] = useState([])
+    const [openUpdateUser, setOpenUpdateUser] = useState(false)
+    const [updateUserDetails, setUpdateUserDetails] = useState({
+      email: '',
+      name: '',
+      role: ''
+    })
     
     const fetchAllUsers = async () =>{
         const fetchData = await fetch(summeryApi.Allusers.url,{
@@ -31,11 +41,12 @@ const AllUsers = () => {
       <table  className='w-full userTable'>
         <thead>
           <tr>
-          <th>Sr.</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Created Date</th>
+            <th>Sr.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Created Date</th>
+            <th>Action</th>
           </tr>
           
         </thead>
@@ -49,7 +60,18 @@ const AllUsers = () => {
                     <td>{el?.name}</td>
                     <td>{el?.email}</td>
                     <td>{el?.role}</td>
-                    <td>{el?.createdAt}</td>
+                    <td>{moment(el?.createdAt).format('LL')}</td>
+                    <td>
+                      <button className='bg-green-100 p-2 rounded-full cursor-pointer hover:bg-green-500 hover:text-white' 
+                        onClick={()=>{
+                          setUpdateUserDetails(el)
+                          setOpenUpdateUser(true)}
+                        }
+
+                        >
+                        <MdModeEdit/>
+                      </button>
+                    </td>
                    
                   </tr>
                 )
@@ -57,6 +79,23 @@ const AllUsers = () => {
           }
         </tbody>
       </table>
+
+
+
+      {
+        openUpdateUser && (
+          <ChangeUserRole 
+          onClose={()=>setOpenUpdateUser(false)}
+          name={updateUserDetails.name} 
+          email= {updateUserDetails.email}
+          role={updateUserDetails.role}
+          />
+        )
+          
+
+        
+      }
+      
     </div>
   )
 }

@@ -3,7 +3,7 @@ import loginIcons from '../assets/signin.gif'
 import { IoEyeOffSharp } from "react-icons/io5";
 import {Link, useNavigate} from "react-router-dom";
 import summeryApi from '../common';
-import { toast } from 'react-toastify';
+
 import Context from '../context';
 
 const Login = () => {

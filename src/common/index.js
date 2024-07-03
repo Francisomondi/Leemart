@@ -21,7 +21,11 @@ const summeryApi= {
     Allusers: {
         url: `${BackendDomain}/api/all-users`,
         method: 'get'
-    }   
+    } ,
+    updateUser: {
+        url: `${BackendDomain}/api/update-user`,
+        method: 'post'
+    }  
 }
 
 
