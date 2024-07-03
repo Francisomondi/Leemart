@@ -13,7 +13,8 @@ const AllUsers = () => {
     const [updateUserDetails, setUpdateUserDetails] = useState({
       email: '',
       name: '',
-      role: ''
+      role: '',
+      _id: ''
     })
     
     const fetchAllUsers = async () =>{
@@ -89,6 +90,8 @@ const AllUsers = () => {
           name={updateUserDetails.name} 
           email= {updateUserDetails.email}
           role={updateUserDetails.role}
+          userId={updateUserDetails._id}
+          callFunc={fetchAllUsers}
           />
         )
           

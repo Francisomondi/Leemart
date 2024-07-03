@@ -4,16 +4,16 @@ import { IoMdClose } from "react-icons/io";
 import summeryApi from '../common';
 import { toast } from 'react-toastify';
 
-const ChangeUserRole = ({name,email,role,onClose}) => {
+const ChangeUserRole = ({name,email,role,onClose,userId,callFunc}) => {
 
     const [userRole,setUserRole]= useState(role)
-    const [loading, setLoading] = useState(false);
+    
 
     const handleRoleChange =(e)=>{
         setUserRole(e.target.value)
         console.log(e.target.value)
 
-        setLoading(true);
+        
     }
 
     const updateUserRole = async ()=>{
@@ -24,16 +24,18 @@ const ChangeUserRole = ({name,email,role,onClose}) => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                role : userRole
+                role : userRole,
+                userId: userId
             })
         })
 
         const responseData = await fetchResponse.json()
 
         if (responseData.success) {
-            setLoading(false);
+            
             toast.success(responseData.message)
             onClose()
+            callFunc(   )
 
         }
         
@@ -67,7 +69,7 @@ const ChangeUserRole = ({name,email,role,onClose}) => {
             </div>
             <button className='w-fit mx-auto block py-1 px-3 rounded-full bg-red-500 text-white hover:bg-red-700' 
                 onClick={updateUserRole}
-                disabled={loading}
+                
                 >Change Role
             </button>
         </div>
