@@ -35,7 +35,7 @@ const ChangeUserRole = ({name,email,role,onClose,userId,callFunc}) => {
             
             toast.success(responseData.message)
             onClose()
-            callFunc(   )
+            callFunc(  )
 
         }
         
