@@ -4,6 +4,7 @@ import productCategory from '../helpers/productCategory';
 import { IoIosCloudUpload } from "react-icons/io";
 import uploadImage from '../helpers/uploadImage';
 import DisplayImage from './DisplayImage';
+import { MdDeleteForever } from "react-icons/md";
 
 const UploadProduct = ({onClose}) => {
 
@@ -36,7 +37,22 @@ const UploadProduct = ({onClose}) => {
       productImage: [...preve.productImage, uploadImageCloudanary.url]
     }
    })
-   console.log('upload image',uploadImageCloudanary.url)
+   
+ }
+
+ const handleImageDelete =async (index)=>{
+  console.log('index', index)
+
+  const  newProductImage = [...data.productImage]
+  newProductImage.splice(index,1)
+
+  setData((preve)=>{
+    return{
+      ...preve,
+      productImage: [...newProductImage]
+    }
+   })
+
  }
 
   return (
@@ -107,19 +123,26 @@ const UploadProduct = ({onClose}) => {
                 
                 {
                   data?.productImage[0] ? (
-                    data.productImage.map(el=>{
+                    data.productImage.map((el,index)=>{
                       return(
-                        <img src={el} 
-                          alt={el} 
-                          width={80} 
-                          height={80}  
-                          className='bg-slate-100 border cursor-pointer'  
-                          onClick={()=>{
-                            setOpenFullScreenImage(true)
-                            setFullScreenImage(el)
-                          }}
+
+                        <div className='relative group'>
+                          <img src={el} 
+                              alt={el} 
+                              width={80} 
+                              height={80}  
+                              className='bg-slate-100 border cursor-pointer'  
+                              onClick={()=>{
+                                setOpenFullScreenImage(true)
+                                setFullScreenImage(el)
+                              }}
                           
-                        />
+                          />
+                          <div className='absolute bottom-0 right-0 p-1 text-white bg-red-500 rounded-full hidden group-hover:block cursor-pointer' onClick={()=>handleImageDelete(index)}>
+                            <MdDeleteForever />
+                          </div>
+                        </div>
+                       
                       )
                     })
 
