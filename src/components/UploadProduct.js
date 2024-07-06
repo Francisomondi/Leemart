@@ -16,13 +16,21 @@ const UploadProduct = ({onClose}) => {
       productImage: [],
       description: '',
       price: '',
-      sellingprice: ''
+      sellingPrice: ''
     }
   )
   const [openFullScreenImage,setOpenFullScreenImage] = useState(false)
   const [fullScreenImage,setFullScreenImage] = useState('')
 
  const handleOnchange = (e)=>{
+  const {name,value} = e.target
+  setData((preve)=>{
+    return{
+      ...preve,
+      [name]: value
+    }
+   })
+   
 
  }
 
@@ -89,8 +97,16 @@ const UploadProduct = ({onClose}) => {
                   className='p-2 bg-slate-100 border rounded-md'/>
                   
               <label htmlFor='category' className='mt-3'>Category</label>
-              <select value={data.category} 
-                      className='p-2 bg-slate-100 border rounded-md'>
+              <select 
+                  value={data.category} 
+                  name='category'
+                  onChange={handleOnchange}
+                    className='p-2 bg-slate-100 border rounded-md'>
+                        <option 
+                          value={''} 
+                        >
+                            Select Category
+                        </option>
                         {
                           productCategory.map((el,index)=>{
                             return(
@@ -152,6 +168,31 @@ const UploadProduct = ({onClose}) => {
                 }
                
               </div>
+              <label htmlFor='price'>price</label>
+              <input 
+                  type='number' 
+                  id='price' 
+                  placeholder='Price' 
+                  value={data.productName} 
+                  name = 'productName'
+                  onChange={handleOnchange}
+                  className='p-2 bg-slate-100 border rounded-md'/>
+
+              <label htmlFor='sellingPrice'>Selling Price</label>
+              <input 
+                  type='number' 
+                  id='sellingPrice' 
+                  placeholder='Selling Price' 
+                  value={data.sellingPrice} 
+                  name = 'sellingPrice'
+                  onChange={handleOnchange}
+                  className='p-2 bg-slate-100 border rounded-md'/>
+
+              <label htmlFor='description'>Description</label>
+              <textarea className='h-28 bg-slate-100 border resize-none p-1' placeholder='Enter product description'>
+
+              </textarea>
+
               <button className='px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-800'>Upload Product</button>
 
             </form>            
