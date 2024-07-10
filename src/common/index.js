@@ -25,7 +25,17 @@ const summeryApi= {
     updateUser: {
         url: `${BackendDomain}/api/update-user`,
         method: 'post'
-    }  
+    },
+    uploadProduct: {
+        url: `${BackendDomain}/api/upload-product`,
+        method: 'post'
+    },
+    allProduct: {
+        url: `${BackendDomain}/api/get-product`,
+        method: 'get'
+    },
+
+    
 }
 
 

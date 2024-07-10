@@ -5,6 +5,8 @@ import { IoIosCloudUpload } from "react-icons/io";
 import uploadImage from '../helpers/uploadImage';
 import DisplayImage from './DisplayImage';
 import { MdDeleteForever } from "react-icons/md";
+import summeryApi from '../common';
+import { toast } from 'react-toastify'
 
 const UploadProduct = ({onClose}) => {
 
@@ -63,6 +65,31 @@ const UploadProduct = ({onClose}) => {
 
  }
 
+ /**handle product form submit */
+ const handleSubmit = async(e)=>{
+  e.preventDefault()
+  const response = await fetch(summeryApi.uploadProduct.url,{
+    method: summeryApi.uploadProduct.method,
+    credentials: 'include',
+    headers:{
+      'content-type' : 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+  const dataResponse = await response.json()
+
+  if (dataResponse.success) {
+    toast.success(dataResponse?.message)
+    onClose()
+  }
+
+  if (dataResponse.error) {
+    toast.error(dataResponse?.message)
+  }
+
+ }
+
   return (
     <div className='fixed w-full h-full bg-slate-200 bg-opacity-40 top-0 left-0 right-0 bottom-0 flex justify-center items-center'>
         <div className='bg-white p-4 rounded w-full max-w-2xl h-full max-h-[80%] overflow-hidden'>
@@ -75,7 +102,7 @@ const UploadProduct = ({onClose}) => {
                 </div>
             </div>
 
-            <form className='grid p-4 gap-2 overflow-y-scroll h-full pb-5'>
+            <form className='grid p-4 gap-2 overflow-y-scroll h-full pb-5' onSubmit={handleSubmit}>
               <label htmlFor='productName'>Product Name</label>
               <input 
                   type='text' 
@@ -84,7 +111,8 @@ const UploadProduct = ({onClose}) => {
                   value={data.productName} 
                   name = 'productName'
                   onChange={handleOnchange}
-                  className='p-2 bg-slate-100 border rounded-md'/>
+                  className='p-2 bg-slate-100 border rounded-md'
+                  required/>
 
               <label htmlFor='brandName' className='mt-3'>Brand Name</label>
               <input 
@@ -94,14 +122,16 @@ const UploadProduct = ({onClose}) => {
                   value={data.brandName} 
                   name='brandName'
                   onChange={handleOnchange}
-                  className='p-2 bg-slate-100 border rounded-md'/>
+                  className='p-2 bg-slate-100 border rounded-md'
+                  required/>
                   
               <label htmlFor='category' className='mt-3'>Category</label>
               <select 
                   value={data.category} 
                   name='category'
                   onChange={handleOnchange}
-                    className='p-2 bg-slate-100 border rounded-md'>
+                  className='p-2 bg-slate-100 border rounded-md'
+                  required>
                         <option 
                           value={''} 
                         >
@@ -168,15 +198,16 @@ const UploadProduct = ({onClose}) => {
                 }
                
               </div>
-              <label htmlFor='price'>price</label>
+              <label htmlFor='price'>Price</label>
               <input 
                   type='number' 
                   id='price' 
                   placeholder='Price' 
-                  value={data.productName} 
-                  name = 'productName'
+                  value={data.price} 
+                  name = 'price'
                   onChange={handleOnchange}
-                  className='p-2 bg-slate-100 border rounded-md'/>
+                  className='p-2 bg-slate-100 border rounded-md'
+                  required/>
 
               <label htmlFor='sellingPrice'>Selling Price</label>
               <input 
@@ -186,10 +217,18 @@ const UploadProduct = ({onClose}) => {
                   value={data.sellingPrice} 
                   name = 'sellingPrice'
                   onChange={handleOnchange}
-                  className='p-2 bg-slate-100 border rounded-md'/>
+                  className='p-2 bg-slate-100 border rounded-md'
+                  required/>
 
               <label htmlFor='description'>Description</label>
-              <textarea className='h-28 bg-slate-100 border resize-none p-1' placeholder='Enter product description'>
+              <textarea 
+                  className='h-28 bg-slate-100 border resize-none p-1' 
+                  onChange={handleOnchange} 
+                  id='description' 
+                  name='description' 
+                  value={data.description} 
+                  placeholder='Enter product description'
+                  required>
 
               </textarea>
 
