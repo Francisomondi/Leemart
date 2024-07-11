@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UploadProduct from '../components/UploadProduct'
 import summeryApi from '../common'
+import AdminProductCard from '../components/AdminProductCard'
 
 const Products = () => {
 const [openUploadproduct, setOpenUploadProduct] = useState(false)
@@ -34,14 +35,12 @@ useEffect(()=>{
         //allProducts && Products.length>0()  
           allProducts.map((product,index)=>{
             return (
-              <div className='bg-white p-4 rounded'>
-                <img src={product?.productImage[0]} alt='' width={150} height={150}/>
-                <h1>{product?.productName}</h1>
-              </div>
+              <AdminProductCard data={product} key={index+ 'allProduct'}/>
+              
             )
           })
-        }
-
+        } 
+ 
       </div>
 
       {/**upload product */}
