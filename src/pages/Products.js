@@ -20,7 +20,7 @@ useEffect(()=>{
 
   return (
     <div>
-      <div className='bg-white py-2 px-2 flex justify-between items-center'>
+      <div className='bg-white py-2 px-3 flex justify-between items-center'>
         <h2 className='font-bold text-lg'>All Products</h2>
           <button 
             className='border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all py-1 px-3 rounded-full'
@@ -30,7 +30,7 @@ useEffect(()=>{
       </div>
 
       {/**Display all products */}
-      <div className='flex items-center gap-5 py-3'>
+      <div className='flex items-center flex-wrap gap-2 py-3 h-[calc(100vh-190px)] overflow-y-scroll'>
         { 
         //allProducts && Products.length>0()  
           allProducts.map((product,index)=>{
@@ -46,7 +46,7 @@ useEffect(()=>{
       {/**upload product */}
       {
         openUploadproduct && (
-         <UploadProduct onClose={()=>setOpenUploadProduct(false)}/>
+         <UploadProduct onClose={()=>setOpenUploadProduct(false)} fetchData={fetchAllProducts}/>
   
       )}
       

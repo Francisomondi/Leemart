@@ -8,7 +8,7 @@ import { MdDeleteForever } from "react-icons/md";
 import summeryApi from '../common';
 import { toast } from 'react-toastify'
 
-const UploadProduct = ({onClose}) => {
+const UploadProduct = ({onClose,fetchData}) => {
 
   const [data,setData] = useState(
     {
@@ -82,6 +82,7 @@ const UploadProduct = ({onClose}) => {
   if (dataResponse.success) {
     toast.success(dataResponse?.message)
     onClose()
+    fetchData()
   }
 
   if (dataResponse.error) {
