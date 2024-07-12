@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { CiEdit } from "react-icons/ci";
 import EditProduct from './EditProduct';
 
-const AdminProductCard = ({data}) => {
+const AdminProductCard = ({data,fetchData}) => {
     const [editProduct, setEditProduct]= useState(false)
   return (
     <div className='bg-white p-4 rounded'>
@@ -15,7 +15,7 @@ const AdminProductCard = ({data}) => {
 
         {
         editProduct && (
-          <EditProduct  productData={data} onClose={()=>setEditProduct(false)}/>
+          <EditProduct  productData={data} onClose={()=>setEditProduct(false)} fetchData={fetchData}/>
   
       )}
 

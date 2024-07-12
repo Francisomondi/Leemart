@@ -35,7 +35,7 @@ useEffect(()=>{
         //allProducts && Products.length>0()  
           allProducts.map((product,index)=>{
             return (
-              <AdminProductCard data={product} key={index+ 'allProduct'}/>
+              <AdminProductCard data={product} key={index+ 'allProduct'} fetchData={fetchAllProducts}/>
               
             )
           })

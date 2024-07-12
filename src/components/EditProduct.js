@@ -9,13 +9,14 @@ import summeryApi from '../common';
 import { toast } from 'react-toastify'
 
 
-const EditProduct = ({onClose,productData}) => {
+const EditProduct = ({onClose,productData,fetchData}) => {
 
   const [data,setData] = useState(
     {
+      ...productData,
       productName: productData?.productName,
       brandName:  productData?.brandName,
-      category:  productData?. category,
+      category:  productData?.category,
       productImage:  productData?.productImage || [],
       description:  productData?.description,
       price:  productData?.price,
@@ -69,8 +70,8 @@ const EditProduct = ({onClose,productData}) => {
  /**handle product form submit */
  const handleSubmit = async(e)=>{
   e.preventDefault()
-  const response = await fetch(summeryApi.uploadProduct.url,{
-    method: summeryApi.uploadProduct.method,
+  const response = await fetch(summeryApi.updateProduct.url,{
+    method: summeryApi.updateProduct.method,
     credentials: 'include',
     headers:{
       'content-type' : 'application/json'
@@ -83,6 +84,7 @@ const EditProduct = ({onClose,productData}) => {
   if (dataResponse.success) {
     toast.success(dataResponse?.message)
     onClose()
+    fetchData()
   }
 
   if (dataResponse.error) {
