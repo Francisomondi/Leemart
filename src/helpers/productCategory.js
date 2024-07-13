@@ -8,7 +8,8 @@ const productCategory = [
     {id:7, label:'Processor',value:'processor'   },
     {id:8, label:'Refrigirator',value:'refrigirator'   },
     {id:9, label:'Speakers',value:'speakers'   },
-    {id:10, label:'Teleision',value:'television'   },
+    {id:10, label:'Television',value:'television'},
+    {id:10, label:'Watches',value:'watches'},
 ]
 
 export default productCategory

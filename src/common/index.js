@@ -37,7 +37,13 @@ const summeryApi= {
     updateProduct: {
         url: `${BackendDomain}/api/update-product`,
         method: 'post'
+    },
+    productCategory : {
+        url: `${BackendDomain}/api/getProductCategory`,
+        method: 'post'
     }
+    
+
 
     
 }
