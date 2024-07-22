@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 const ProductCategory = () => {
 
     const params = useParams()
-    console.log('category',)
+    console.log('category')
   return (
     <div>
       {params.categoryName}

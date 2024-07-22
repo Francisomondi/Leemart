@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import fetchCategoryProducts from '../helpers/fetchCategoryProducts'
+import displayCurrency from '../helpers/displayCurrency'
 
 const HorizontalCardProduct = ({category, heading}) => {
 
@@ -26,15 +27,24 @@ const HorizontalCardProduct = ({category, heading}) => {
             {
                 data.map((product,index)=>{
                     return(
-                        <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex'>
-                            <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[140px]'>
+                        <div className='w-full min-w-[280px] md:min-w-[420px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex'>
+                            <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
                                 <img 
                                     src={product.productImage[0]} 
                                     alt='' 
                                     className='h-full object-scale-down hover:scale-110 transition-all'/>
                             </div>
-                            <div>
-                
+                            <div className='p-4'>
+                                <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>
+                                    {product?.productName}
+                                </h2>
+                                <p className='capitalize text-slate-500'>{product?.category}</p> 
+                                <div className='flex gap-2'>
+                                     <p className='text-slate-500 line-through'>{ displayCurrency(product.price) }</p>
+                                    <p className='text-red-600 font-medium'>{ displayCurrency(product.sellingPrice) }</p>
+                                    
+                                </div>  
+                                             
                             </div>
                         </div>
                     )
