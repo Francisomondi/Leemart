@@ -1,14 +1,17 @@
 import React from 'react'
 import ProductCategory from '../components/ProductCategory'
 import BannerProduct from '../components/BannerProduct'
-import HorizontalCardProduct from '../components/HorizontalCardProduct'
+import HorizontalProductCard from '../components/HorizontalProductCard'
+
 
 const Home = () => {
   return (
     <div>
       <ProductCategory/>
       <BannerProduct/>
-      <HorizontalCardProduct category= {'airpods'} heading={'Tops Airpods'}/>
+      <HorizontalProductCard category= {'airpods'} heading={'Top Airpods'}/>
+      <HorizontalProductCard category= {'speakers'} heading={'Popular Speakerss'}/>
+     
     </div>
   )
 }

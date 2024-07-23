@@ -3,7 +3,7 @@ import fetchCategoryProducts from '../helpers/fetchCategoryProducts'
 import displayCurrency from '../helpers/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 
-const HorizontalCardProduct = ({category, heading}) => {
+const HorizontalProductCard = ({category, heading}) => {
 
     const [data,setData] = useState([])
     const [loading, setLoading] = useState(false)
@@ -41,7 +41,7 @@ const HorizontalCardProduct = ({category, heading}) => {
             {
                 data.map((product,index)=>{
                     return(
-                        <div className='w-full min-w-[330px] md:min-w-[420px] max-w-[380px] md:max-w-[420px] h-36 bg-white rounded-sm shadow flex'>
+                        <div className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] h-36 bg-white rounded-sm shadow flex'>
                             <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
                                 <img 
                                     src={product.productImage[0]} 
@@ -72,4 +72,4 @@ const HorizontalCardProduct = ({category, heading}) => {
   )
 }
 
-export default HorizontalCardProduct
+export default HorizontalProductCard
