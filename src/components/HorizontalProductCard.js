@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import fetchCategoryProducts from '../helpers/fetchCategoryProducts'
 import displayCurrency from '../helpers/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
+import { Link } from 'react-router-dom'
+import addToCart from '../helpers/addToCart'
 
 const HorizontalProductCard = ({category, heading}) => {
 
@@ -68,7 +70,7 @@ const HorizontalProductCard = ({category, heading}) => {
                 ) : (
                     data.map((product,index)=>{
                         return(
-                            <div className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] h-36 bg-white rounded-sm shadow flex'>
+                            <Link to={'product/'+product?._id} className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] h-36 bg-white rounded-sm shadow flex'>
                                 <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
                                     <img 
                                         src={product.productImage[0]} 
@@ -85,10 +87,12 @@ const HorizontalProductCard = ({category, heading}) => {
                                         <p className='text-slate-500 line-through'>{ displayCurrency(product.price) }</p>                        
                                         
                                     </div>  
-                                    <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full'>Add to Card</button>
+                                    <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full' onClick={(e)=>{addToCart(e,product?._id)}}>
+                                        Add to Card
+                                    </button>
                                                  
                                 </div>
-                            </div> 
+                            </Link> 
                         )
                     })
                 )

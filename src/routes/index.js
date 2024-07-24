@@ -13,6 +13,7 @@ import AdminPanel from "../pages/AdminPanel";
 import AllUsers from "../pages/AllUsers";
 import Products from "../pages/Products";
 import ProductCategory from "../pages/ProductCategory";
+import ProductDetails from "../pages/ProductDetails";
 
 
   const router = createBrowserRouter([
@@ -40,6 +41,11 @@ import ProductCategory from "../pages/ProductCategory";
           path: 'product-category/:categoryName',
           element: <ProductCategory/>
         },
+        {
+          path: 'product/:id',
+          element: <ProductDetails/>
+        },
+       
         {
           path: 'admin-panel',
           element: <AdminPanel/>,
