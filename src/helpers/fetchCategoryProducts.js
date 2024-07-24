@@ -4,7 +4,7 @@ const fetchCategoryProducts = async (category)=>{
 const response = await fetch(summeryApi.categoryProducts.url,{
     method: summeryApi.categoryProducts.method,
     headers: {
-        'content-type': 'application/json'
+        'Content-Type': 'application/json'
     },
     body: JSON.stringify({
         category: category
