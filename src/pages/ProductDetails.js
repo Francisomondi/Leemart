@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import summeryApi from '../common'
+import { FaStar } from "react-icons/fa6";
+import { FaStarHalfAlt } from "react-icons/fa";
+import displayCurrency from '../helpers/displayCurrency';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -86,7 +89,8 @@ const ProductDetails = () => {
                            <img src={image} 
                             className='w-full h-full object-scale-down mix-blend-multiply cursor-pointer' 
                             alt='product'
-                            onMouseEnter={()=>handleMouseImageHover(image)}/>
+                            onMouseEnter={()=>handleMouseImageHover(image)}
+                            />
                         </div>
                       )
                     })
@@ -98,8 +102,36 @@ const ProductDetails = () => {
         </div>
 
         {/**product datails */}
-        <div>
-              product details
+        <div className='flex flex-col gap-1'>
+            <p className='bg-red-200 text-red-500 px-2 rounded-full inline-block w-fit'>{data?.brandName}</p>
+            <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
+            <p className='capitalize text-slate-400'>{data?.category}</p>
+
+            <div className='flex text-yellow-500 items-center gap-1'>
+              <FaStar/>
+              <FaStar/>
+              <FaStar/>
+              <FaStar/>
+              <FaStarHalfAlt/>
+            </div>
+
+            <div className='flex items-center gap-2 text-2xl lg:text-3xl font-medium my-1'>
+              <p className='text-red-600'>{displayCurrency(data.sellingPrice)}</p>
+              <p className='text-slate-400 line-through'>{displayCurrency(data.price)}</p>
+            </div>
+
+            <div className=''>
+              <p className='text-slate-600 font-medium my-1'>Description: </p>
+              <p className='text-medium'>{data?.description}</p>              
+            </div>
+
+            <div className='flex items-center gap-3 my-2'>
+              <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] text-red-600 font-medium hover:bg-red-600 hover:text-white'>Buy</button>
+              <button 
+                className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white'>
+                  Add To Cart
+              </button>
+            </div>
         </div>
 
       </div>
