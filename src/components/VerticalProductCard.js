@@ -3,6 +3,7 @@ import fetchCategoryProducts from '../helpers/fetchCategoryProducts'
 import displayCurrency from '../helpers/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import addToCart from '../helpers/addToCart'
+import { Link } from 'react-router-dom'
 
 const VerticalProductCard = ({category, heading}) => {
 
@@ -50,7 +51,7 @@ const VerticalProductCard = ({category, heading}) => {
                 loading ? (
                     loadingList.map((product,index)=>{
                         return(
-                            <div className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] bg-white rounded-sm shadow '>
+                            <Link to={'product/'+product?._id} className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] bg-white rounded-sm shadow '>
                                 <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse'>
                                     
                                 </div>
@@ -67,13 +68,13 @@ const VerticalProductCard = ({category, heading}) => {
                                     <button className='text-sm  text-white px-3 animate-pulse rounded-full bg-slate-200 py-2'></button>
                                                  
                                 </div>
-                            </div> 
+                            </Link> 
                         )
                     })
                 ):(
                     data.map((product,index)=>{
                         return(
-                            <div className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] bg-white rounded-sm shadow '>
+                            <Link to={'product/'+product?._id} className='w-full min-w-[330px] md:min-w-[380px] max-w-[380px] md:max-w-[420px] bg-white rounded-sm shadow '>
                                 <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
                                     <img 
                                         src={product.productImage[0]}  
@@ -93,7 +94,7 @@ const VerticalProductCard = ({category, heading}) => {
                                     <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full' onClick={(e)=>{addToCart(e,product?._id)}}>Add to Card</button>
                                                  
                                 </div>
-                            </div> 
+                            </Link> 
                         )
                     })
                 )

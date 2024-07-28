@@ -4,6 +4,7 @@ import summeryApi from '../common'
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import displayCurrency from '../helpers/displayCurrency';
+import VerticalProductCard from '../components/VerticalProductCard';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -211,6 +212,13 @@ const handleLeaveZoomOutImage = ()=>{
        }
 
       </div>
+
+{
+data.category && (
+  <VerticalProductCard category={data?.category} heading={'recommended products'}/>
+)
+}
+      
     </div>
   )
 }
