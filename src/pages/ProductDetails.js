@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import displayCurrency from '../helpers/displayCurrency';
 import VerticalProductCard from '../components/VerticalProductCard';
+import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -67,7 +68,7 @@ const handleImageZoom = useCallback((e) =>{
 
   setZoomImage(true)
  const {left, top, width, height} = e.target.getBoundingClientRect()
- console.log('coordinate', left,top,width,height)
+ //console.log('coordinate', left,top,width,height)
  const x = (e.clientX - left) / width
  const y = (e.clientY - top) / height
 
@@ -86,11 +87,11 @@ const handleLeaveZoomOutImage = ()=>{
     <div className='container mx-auto p-4'>
       <div className='min-h-[200px] flex flex-col lg:flex-row gap-2'>
         {/**product image */}
-        <div className='h-96 flex flex-col lg:flex-row-reverse gap-4'>
-          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative'>
+        <div className='h-96 flex flex-col lg:flex-row-reverse gap-6 p-2'>
+          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative p-2'>
             <img src={activeImage} 
-              alt='product img'
-              className='h-full w-full object-scale-down mix-blend-multiply scale-125'
+              alt='detailedpc'
+              className='h-full w-full object-scale-down mix-blend-multiply'
               onMouseMove={handleImageZoom}
               onMouseLeave={handleLeaveZoomOutImage}/>
 
@@ -98,15 +99,13 @@ const handleLeaveZoomOutImage = ()=>{
 
               {
                 zoomImage && (
-                  <div className='hidden lg:block absolute min-w-[500px] overflow-hidden min-h-[400px] bg-slate-200 p-1 -right-[510px] top-0'>
-                    <div className='w-full h-full min-h-[400px] min-w-[500px] mix-blend-multiply'
+                  <div className='hidden lg:block absolute min-w-[500px] overflow-hidden min-h-[400px] bg-slate-200 p-1 -right-[550px] top-0'>
+                    <div className='w-full h-full min-h-[400px] min-w-[500px] mix-blend-multiply scale-150'
                         style={{
                           backgroundImage: `url(${activeImage})`,
                           backgroundRepeat: 'no-repeat',
-                          backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`
-                          
-                        }}>
-                          
+                          backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`                          
+                        }}>                          
                     </div>
                   </div>
                 )
@@ -213,11 +212,11 @@ const handleLeaveZoomOutImage = ()=>{
 
       </div>
 
-{
-data.category && (
-  <VerticalProductCard category={data?.category} heading={'recommended products'}/>
-)
-}
+        {
+        data.category && (
+          <AllCategoryProductDisplay category={data?.category} heading={'Recommended products'}/>
+        )
+        }
       
     </div>
   )
