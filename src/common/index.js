@@ -49,7 +49,14 @@ const summeryApi= {
     productDetails : {
         url: `${BackendDomain}/api/product-details`,
         method: 'post'
+    },
+    productAddToCart : {
+        url: `${BackendDomain}/api/addtocart`,
+        method: 'post'
     }
+
+
+    
 
 
    
