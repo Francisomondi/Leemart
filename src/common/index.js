@@ -58,7 +58,10 @@ const summeryApi= {
     productAddToCartCount:{
         url: `${BackendDomain}/api/addtocartcount`,
         method: 'get'
-    } 
+    } ,
+    viewCartProduct: {
+        url:`${BackendDomain}/api/viewcartproduct`,
+    }
 }
 
 export default summeryApi
