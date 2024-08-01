@@ -1,15 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import fetchCategoryProducts from '../helpers/fetchCategoryProducts'
 import displayCurrency from '../helpers/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import addToCart from '../helpers/addToCart'
 import { Link } from 'react-router-dom'
+import Context from '../context'
 
 const AllCategoryProductDisplay = ({category, heading}) => {
 
     const [data,setData] = useState([])
     const [loading, setLoading] = useState(true)
     const loadingList = new Array(13).fill(null)
+    const {fetchUserAddToCart} = useContext(Context)
+
+    const handleAddToCart = async(e,id)=>{
+        await addToCart(e,id)
+       fetchUserAddToCart()
+    }
 
     const fetchData = async () =>{
         setLoading(true)
@@ -72,7 +79,7 @@ const AllCategoryProductDisplay = ({category, heading}) => {
                                         <p className='text-slate-500 line-through'>{ displayCurrency(product.price) }</p>                        
                                         
                                     </div>  
-                                    <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full' onClick={(e)=>{addToCart(e,product?._id)}}>Add to Card</button>
+                                    <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full' onClick={(e)=>{handleAddToCart(e,product?._id)}}>Add to Card</button>
                                                  
                                 </div>
                             </Link> 

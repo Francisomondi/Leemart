@@ -22,5 +22,7 @@ if(responseData.error){
     toast.error(responseData.message)
 }
 
+return responseData
+
 }
 export default addToCart
