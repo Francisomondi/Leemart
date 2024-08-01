@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import summeryApi from './common';
 import Context from './context';
 import { useDispatch } from 'react-redux';
@@ -14,6 +14,7 @@ import { setUserDetails } from './store/userSlice';
 function App() {
 
 const dispatch = useDispatch()
+const [cartProductCount, setCartProductCount] = useState(0)
 
   const fetchUserDetails = async () => {
 
@@ -23,11 +24,6 @@ const dispatch = useDispatch()
         credentials: 'include',
       });
 
-      if (!dataResponse.ok) {
-        const errorResponse = await dataResponse.json();
-        throw new Error(errorResponse.message || 'Failed to fetch user details')
-      }
-
       const userData = await dataResponse.json()
 
       if (userData.success) {
@@ -35,8 +31,7 @@ const dispatch = useDispatch()
       }
       //console.log('data-user', userData);
        
-      // Additional logic to handle the userData will be added here
-
+     
       
     } catch (error) {
       console.error('Error fetching user details:', error);
@@ -44,15 +39,31 @@ const dispatch = useDispatch()
     }
   };
 
+
+  const fetchUserAddToCart = async()=>{
+    const dataResponse = await fetch(summeryApi.productAddToCartCount.url, {
+      method: summeryApi.productAddToCartCount.method,
+      credentials: 'include',
+    });
+
+    const userData = await dataResponse.json()
+
+    console.log('userData', userData)
+    setCartProductCount(userData?.data?.count)
+  }
   useEffect(() => {
+    //user details
     fetchUserDetails()
+
+    //fetch add to cart 
+    fetchUserAddToCart()
     
   }, []);
 
   return (
     <>
     
-      <Context.Provider value={{ fetchUserDetails }}>
+      <Context.Provider value={{ fetchUserDetails, cartProductCount,  fetchUserAddToCart }}>
         <ToastContainer />
         <Header />
         <main className='min-h-[calc(100vh-120px)] pt-16'>

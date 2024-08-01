@@ -1,3 +1,4 @@
+
 const BackendDomain = "http://localhost:8000"
 
 const summeryApi= {
@@ -53,19 +54,11 @@ const summeryApi= {
     productAddToCart : {
         url: `${BackendDomain}/api/addtocart`,
         method: 'post'
-    }
-
-
-    
-
-
-   
-    
-
-
-    
+    },
+    productAddToCartCount:{
+        url: `${BackendDomain}/api/addtocartcount`,
+        method: 'get'
+    } 
 }
-
-
 
 export default summeryApi
