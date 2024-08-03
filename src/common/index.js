@@ -61,6 +61,7 @@ const summeryApi= {
     } ,
     viewCartProduct: {
         url:`${BackendDomain}/api/viewcartproduct`,
+        method: 'get'
     }
 }
 
