@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import summeryApi from '../common'
 import Context from '../context'
 import displayCurrency from '../helpers/displayCurrency'
+import { MdDeleteForever } from "react-icons/md";
 
 const Cart = () => {
   const [data,setData] = useState([])
@@ -32,7 +33,71 @@ const Cart = () => {
     fetchData()
     setLoading(false)
   },[])
-console.log('cart data', data)
+
+  const increaseCartQty = async (id,qty)=>{
+    const response = await fetch(summeryApi.updateProductCart.url,{
+      method: summeryApi.updateProduct.method,
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: id,
+        quantity : qty + 1
+      })
+    })
+
+    const responseData = await response.json()
+
+    if (responseData.success) {
+      fetchData()
+    }
+  }
+
+  const decreaseCartQty = async (id,qty)=>{
+   if (qty >= 2) {
+      const response = await fetch(summeryApi.updateProductCart.url,{
+        method: summeryApi.updateProduct.method,
+        credentials: 'include',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          _id: id,
+          quantity : qty - 1
+        })
+      })
+
+      const responseData = await response.json()
+
+      if (responseData.success) {
+        fetchData()
+      }
+   }
+  }
+
+  const deleteCartProduct = async(id)=>{
+    if (id) {
+      const response = await fetch(summeryApi.deleteCartProduct.url,{
+        method: summeryApi.deleteCartProduct.method,
+        credentials: 'include',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          _id: id,
+          
+        })
+      })
+
+      const responseData = await response.json()
+
+      if (responseData.success) {
+        fetchData()
+      }
+   }
+  }
+
 
   return (
     <div className='container mx-auto'>
@@ -66,14 +131,25 @@ console.log('cart data', data)
                     <div className='w-32 h-32 bg-slate-200'>
                       <img src={product?.productId?.productImage[0]} alt='' className='w-full h-full object-scale-down mix-blend-multiply'/>
                     </div>
-                    <div className='px-4 py-2'>
+                    <div className='px-4 py-2 relative'>
+                      {/**Delete cart product */}
+                      <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' 
+                            onClick={()=>deleteCartProduct(product?._id)}>
+                        <MdDeleteForever/>
+                      </div>
                       <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{productItem?.productName}</h2>
                       <p className='capitalize'>{productItem?.category}</p>
                       <p className='text-red-600 font-medium text-lg'>{displayCurrency(productItem?.sellingPrice)}</p>
                       <div className='flex items-center gap-3 mt-1'>
-                        <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded'>-</button>
+                        <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
+                          onClick={()=>decreaseCartQty(product?._id ,product?.quantity)}>
+                            -
+                        </button>
                         <span>{product.quantity}</span>
-                        <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded'>+</button>
+                        <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
+                          onClick={()=>increaseCartQty(product?._id ,product?.quantity)}>
+                            +
+                        </button>
                       </div>
                     </div>
                 </div>

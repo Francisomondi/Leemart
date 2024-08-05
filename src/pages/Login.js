@@ -60,7 +60,7 @@ const Login = () => {
     }
 
      if(dataApi.error){
-      toast.error('kinly log in')
+      toast.error('kindly log in')
     }
 
   }

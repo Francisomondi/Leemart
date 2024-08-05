@@ -62,6 +62,14 @@ const summeryApi= {
     viewCartProduct: {
         url:`${BackendDomain}/api/viewcartproduct`,
         method: 'get'
+    },
+    updateProductCart: {
+        url:`${BackendDomain}/api/updatecartproduct`,
+        method: 'post'
+    },
+    deleteCartProduct: {
+        url:`${BackendDomain}/api/deletecartproduct`,
+        method: 'post'
     }
 }
 
