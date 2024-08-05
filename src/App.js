@@ -63,7 +63,13 @@ const [cartProductCount, setCartProductCount] = useState(0)
   return (
     <>
     
-      <Context.Provider value={{ fetchUserDetails, cartProductCount,  fetchUserAddToCart }}>
+      <Context.Provider value= {
+        { 
+          fetchUserDetails, 
+          cartProductCount,  
+          fetchUserAddToCart 
+        }
+      }>
         <ToastContainer position='top-center'/>
         <Header />
         <main className='min-h-[calc(100vh-120px)] pt-16'>

@@ -51,6 +51,7 @@ const Cart = () => {
 
     if (responseData.success) {
       fetchData()
+      context.fetchUserAddToCart()
     }
   }
 
@@ -72,6 +73,7 @@ const Cart = () => {
 
       if (responseData.success) {
         fetchData()
+        context.fetchUserAddToCart()
       }
    }
   }
@@ -94,10 +96,13 @@ const Cart = () => {
 
       if (responseData.success) {
         fetchData()
+        context.fetchUserAddToCart()
       }
    }
   }
 
+  const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0);
+  const totalPrice = data.reduce((previousValue, currentValue) => previousValue + (currentValue.quantity * currentValue?.productId?.sellingPrice),0 )
 
   return (
     <div className='container mx-auto'>
@@ -139,7 +144,10 @@ const Cart = () => {
                       </div>
                       <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{productItem?.productName}</h2>
                       <p className='capitalize'>{productItem?.category}</p>
-                      <p className='text-red-600 font-medium text-lg'>{displayCurrency(productItem?.sellingPrice)}</p>
+                      <div className='flex items-center justify-between'>
+                        <p className='text-red-600 font-medium text-lg'>{displayCurrency(productItem?.sellingPrice)}</p>
+                        <p className='text-slate-600 font-semibold text-lg'>{displayCurrency(productItem?.sellingPrice * product?.quantity)}</p>
+                      </div>
                       <div className='flex items-center gap-3 mt-1'>
                         <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
                           onClick={()=>decreaseCartQty(product?._id ,product?.quantity)}>
@@ -168,8 +176,20 @@ const Cart = () => {
               total
             </div>
           ):(
-            <div className='h-36 bg-slate-200'>
-              total
+            <div className='h-36 bg-white mx-auto' >
+              <h2 className='text-white bg-red-900 px-4 py-1'>Summery</h2>
+              <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                <p>Quantity</p>
+                <p>{totalQty}</p>
+              </div>
+              <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                <p>Total price</p>
+                
+                <p>{ displayCurrency(totalPrice) }</p>
+              </div>
+
+              <button className='bg-blue-600 p-2 text-white w-full'>Pay Now</button>
+
             </div>
           )
         }
