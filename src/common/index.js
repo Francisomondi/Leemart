@@ -70,6 +70,11 @@ const summeryApi= {
     deleteCartProduct: {
         url:`${BackendDomain}/api/deletecartproduct`,
         method: 'post'
+    },
+    searchProduct: {
+         url:`${BackendDomain}/api/search-product`,
+        method: 'get'
+        
     }
 }
 
