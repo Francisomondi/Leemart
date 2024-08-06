@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import fetchCategoryProducts from '../helpers/fetchCategoryProducts'
+import React, { useContext } from 'react'
+import scrollTop from '../helpers/scrollTop'
 import displayCurrency from '../helpers/displayCurrency'
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
+import Context from '../context'
 import addToCart from '../helpers/addToCart'
 import { Link } from 'react-router-dom'
-import Context from '../context'
-import scrollTop from '../helpers/scrollTop'
 
-const AllCategoryProductDisplay = ({category, heading}) => {
-
-    const [data,setData] = useState([])
-    const [loading, setLoading] = useState(true)
+const VerticalSearchProduct = ({loading,data=[]}) => {
     const loadingList = new Array(13).fill(null)
+
+
     const {fetchUserAddToCart} = useContext(Context)
 
     const handleAddToCart = async(e,id)=>{
@@ -19,21 +16,8 @@ const AllCategoryProductDisplay = ({category, heading}) => {
        fetchUserAddToCart()
     }
 
-    const fetchData = async () =>{
-        setLoading(true)
-        const categoryProducts = await fetchCategoryProducts(category)
-        setLoading(false)
-        setData(categoryProducts?.data)
-    }
-    useEffect(()=>{
-        fetchData()
-    },[])
-
   return (
-    <div className='container mx-auto px-4 my-6 relative'>
-        <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
-
-        <div className='grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-between md:gap-6 overflow-x-scroll scrollbar-none transition-all' 
+      <div className='grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-between md:gap-6 overflow-x-scroll scrollbar-none transition-all' 
        >
 
             {
@@ -68,7 +52,7 @@ const AllCategoryProductDisplay = ({category, heading}) => {
                                 onClick={scrollTop}>
                                 <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
                                     <img 
-                                        src={product.productImage[0]}  
+                                        src={product?.productImage[0]}  
                                         alt='' 
                                         className='h-full object-scale-down hover:scale-110 transition-all mix-blend-multiply'/>
                                 </div>
@@ -92,10 +76,8 @@ const AllCategoryProductDisplay = ({category, heading}) => {
                 
             }
         </div>
-
-     
-    </div>
+    
   )
 }
 
-export default AllCategoryProductDisplay
+export default VerticalSearchProduct

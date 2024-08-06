@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import summeryApi from '../common'
 import { FaStar } from "react-icons/fa6";
@@ -6,6 +6,8 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import displayCurrency from '../helpers/displayCurrency';
 import VerticalProductCard from '../components/VerticalProductCard';
 import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay';
+import Context from '../context';
+import addToCart from '../helpers/addToCart';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -58,10 +60,17 @@ const ProductDetails = () => {
 
   useEffect(()=>{
     fetchProductDetails()
-  },[])
+  },[params])
 
   const handleMouseImageHover = (image)=>{
     setActiveImage(image)
+  }
+
+  const {fetchUserAddToCart} = useContext(Context)
+
+  const handleAddToCart = async(e,id)=>{
+      await addToCart(e,id)
+     fetchUserAddToCart()
   }
 
 const handleImageZoom = useCallback((e) =>{
@@ -202,7 +211,8 @@ const handleLeaveZoomOutImage = ()=>{
           <div className='flex items-center gap-3 my-2'>
             <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] text-red-600 font-medium hover:bg-red-600 hover:text-white'>Buy</button>
             <button 
-              className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white'>
+              className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white'
+              onClick={(e)=>{handleAddToCart(e,data?._id)}}>
                 Add To Cart
             </button>
           </div>
