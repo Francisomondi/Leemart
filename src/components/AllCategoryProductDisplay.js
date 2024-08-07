@@ -33,7 +33,7 @@ const AllCategoryProductDisplay = ({category, heading}) => {
     <div className='container mx-auto px-4 my-6 relative'>
         <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
 
-        <div className='grid grid-cols-[repeat(auto-fit,minmax(260px,300px))] justify-center md:justify-between md:gap-4 overflow-x-scroll scrollbar-none transition-all' 
+        <div className='grid grid-cols-[repeat(auto-fit,minmax(280px,300px))] justify-center md:justify-between md:gap-4 overflow-x-scroll scrollbar-none transition-all' 
        >
 
             {

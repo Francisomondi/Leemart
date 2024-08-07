@@ -3,7 +3,7 @@ import Icon from './Icon' //as logo
 import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import summeryApi from '../common';
 import { toast } from 'react-toastify';
@@ -18,6 +18,10 @@ const Header = () => {
   const context = useContext(Context)
 
   const navigate = useNavigate()
+  const searchInput = useLocation()
+  const [search,setSearch] = useState(searchInput?.search?.split('=')[1])
+
+  console.log('searchInput', searchInput?.search.split('=')[1])
 
 
 const user = useSelector(state=>state?.user?.user)
@@ -46,6 +50,7 @@ const handleSignOut = async  () =>{
 const handleSearch = (e) =>{
 
   const {value} = e.target
+  setSearch(value)
 
   if (value) {
     navigate(`/search?q=${value}`)  
@@ -66,7 +71,7 @@ const handleSearch = (e) =>{
                 type='text' 
                 placeholder='Search for products...' 
                 className='w-full outline-none  cursor-pointer'
-                onChange={handleSearch}/>
+                onChange={handleSearch} value={search}/>
               <div className='text-lg min-w-[60px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
                   <FiSearch />
               </div>
