@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay'
@@ -9,6 +9,7 @@ const ProductCategory = () => {
     const params = useParams()
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
+    const [selectCategory, setSelectCategory] = useState({})
 
     const fetchData = async()=>{
       const response = await fetch()
@@ -18,7 +19,33 @@ const ProductCategory = () => {
 
       console.log('responseData', responseData)
     }
-   // {params.categoryName}
+
+    const handleSelectCategory = (e) =>{
+      const{ name,value,checked} =  e.target
+
+      setSelectCategory((prev)=>{
+        return{
+          ...prev,
+          [value] : checked
+        }
+      })
+    }
+
+    console.log('select gategory', selectCategory)
+   
+
+    useEffect(()=>{
+      const arrayOfCategories = Object.keys(selectCategory).map(categorykeyName => {
+        if (selectCategory[categorykeyName]) {
+          return categorykeyName
+        }
+
+        return null
+        
+      }).filter(el => el)
+      console.log('selected', arrayOfCategories)
+
+    },[selectCategory])
   return (
     <div className='container mx-auto p-4'>
         {/**Desktop version */}
@@ -50,7 +77,7 @@ const ProductCategory = () => {
                       productCategory.map((categoryName,index)=>{
                         return(
                           <div className='flex items-center gap-3'>
-                            <input type='checkbox' name='category' id={categoryName?.value}/>
+                            <input type='checkbox' name='category' checked={selectCategory[categoryName?.value]} value={categoryName?.value} id={categoryName?.value} onChange={handleSelectCategory}/>
                             <label htmlFor={categoryName?.value}>{categoryName?.label}</label>
                           </div>
                         )
@@ -64,11 +91,7 @@ const ProductCategory = () => {
                 {
                   data.length !== 0 && !loading && (
                     <VerticalProductCard data={data} loading={loading}/>
-                  )
-                  
-                      
-                  
-                  
+                  ) 
                 }
             </div>
         </div>      
