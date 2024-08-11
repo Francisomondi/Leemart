@@ -40,7 +40,7 @@ import SearchProduct from "../pages/SearchProduct";
           element: <SignUp/>
         },
         {
-          path: 'product-category/:categoryName',
+          path: 'product-category',
           element: <ProductCategory/>
         },
         {

@@ -48,7 +48,6 @@ const handleSignOut = async  () =>{
 }
 
 const handleSearch = (e) =>{
-
   const {value} = e.target
   setSearch(value)
 
@@ -71,7 +70,8 @@ const handleSearch = (e) =>{
                 type='text' 
                 placeholder='Search for products...' 
                 className='w-full outline-none  cursor-pointer'
-                onChange={handleSearch} value={search}/>
+                onChange={handleSearch} 
+                value={search}/>
               <div className='text-lg min-w-[60px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
                   <FiSearch />
               </div>

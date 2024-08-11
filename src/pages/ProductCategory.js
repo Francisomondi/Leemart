@@ -1,21 +1,45 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay'
 import VerticalProductCard from '../components/VerticalProductCard'
+import summeryApi from '../common'
 
 const ProductCategory = () => {
 
     const params = useParams()
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
-    const [selectCategory, setSelectCategory] = useState({})
+    const location = useLocation()
+    const searchUrl = new URLSearchParams(location.search)
+    const categoryListUrlInArray = searchUrl.getAll('category')
+
+    const categoryListObject = {}
+
+    categoryListUrlInArray.forEach(el=>{
+      categoryListObject[el] = true
+    })
+    
+    const [selectCategory, setSelectCategory] = useState(categoryListObject)
+    const [filterCategoryList, setFilterCategoryList] = useState([])
 
     const fetchData = async()=>{
-      const response = await fetch()
 
-      const responseData = response.json()
+      setLoading(true);
+      const response = await fetch(summeryApi.filterProduct.url,{
+        method: summeryApi.filterProduct.method,
+        headers: {
+          'content-type' : 'application/json'
+        },
+        body: JSON.stringify({
+          category: filterCategoryList
+        })
+      })
+
+      const responseData = await response.json()
       setData(responseData?.data || [])
+
+      setLoading(false);
 
       console.log('responseData', responseData)
     }
@@ -31,20 +55,19 @@ const ProductCategory = () => {
       })
     }
 
-    console.log('select gategory', selectCategory)
-   
+      useEffect(()=>{
+        fetchData()
+      },[filterCategoryList])
 
     useEffect(()=>{
-      const arrayOfCategories = Object.keys(selectCategory).map(categorykeyName => {
-        if (selectCategory[categorykeyName]) {
-          return categorykeyName
+      const arrayOfCategories = Object.keys(selectCategory).map(categoryKeyName => {
+        if (selectCategory[categoryKeyName]) {
+          return categoryKeyName
         }
-
-        return null
-        
+        return null  
       }).filter(el => el)
-      console.log('selected', arrayOfCategories)
 
+      setFilterCategoryList(arrayOfCategories)
     },[selectCategory])
   return (
     <div className='container mx-auto p-4'>
@@ -76,7 +99,7 @@ const ProductCategory = () => {
                     {
                       productCategory.map((categoryName,index)=>{
                         return(
-                          <div className='flex items-center gap-3'>
+                          <div className='flex items-center gap-3' key={index}>
                             <input type='checkbox' name='category' checked={selectCategory[categoryName?.value]} value={categoryName?.value} id={categoryName?.value} onChange={handleSelectCategory}/>
                             <label htmlFor={categoryName?.value}>{categoryName?.label}</label>
                           </div>
