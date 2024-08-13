@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay'
-import VerticalProductCard from '../components/VerticalProductCard'
+//import VerticalProductCard from '../components/VerticalProductCard'
 import summeryApi from '../common'
+import VerticalSearchProduct from '../components/VerticalSearchProduct'
 
 const ProductCategory = () => {
 
@@ -112,8 +113,8 @@ const ProductCategory = () => {
             {/**right side {products}*/}
             <div>
                 {
-                  data.length !== 0 && !loading && (
-                    <VerticalProductCard data={data} loading={loading}/>
+                  data.length !== 0 &&  (
+                    <VerticalSearchProduct  loading={loading} data={data}/>
                   ) 
                 }
             </div>

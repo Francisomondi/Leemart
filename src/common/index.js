@@ -71,8 +71,8 @@ const summeryApi= {
         url:`${BackendDomain}/api/deletecartproduct`,
         method: 'post'
     },
-    searchProduct: {
-         url:`${BackendDomain}/api/search-product`,
+    searchProducts: {
+         url:`${BackendDomain}/api/search`,
         method: 'get'
         
     },
