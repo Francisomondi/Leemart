@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay'
-//import VerticalProductCard from '../components/VerticalProductCard'
+import VerticalProductCard from '../components/VerticalProductCard'
 import summeryApi from '../common'
 import VerticalSearchProduct from '../components/VerticalSearchProduct'
 
@@ -25,7 +25,6 @@ const ProductCategory = () => {
     const [filterCategoryList, setFilterCategoryList] = useState([])
 
     const fetchData = async()=>{
-
       setLoading(true);
       const response = await fetch(summeryApi.filterProduct.url,{
         method: summeryApi.filterProduct.method,
@@ -46,7 +45,7 @@ const ProductCategory = () => {
     }
 
     const handleSelectCategory = (e) =>{
-      const{ name,value,checked} =  e.target
+      const{ name, value, checked} =  e.target
 
       setSelectCategory((prev)=>{
         return{
@@ -101,7 +100,13 @@ const ProductCategory = () => {
                       productCategory.map((categoryName,index)=>{
                         return(
                           <div className='flex items-center gap-3' key={index}>
-                            <input type='checkbox' name='category' checked={selectCategory[categoryName?.value]} value={categoryName?.value} id={categoryName?.value} onChange={handleSelectCategory}/>
+                            <input 
+                            type='checkbox' 
+                            name='category' 
+                            checked={selectCategory[categoryName?.value]} 
+                            value={categoryName?.value} 
+                            id={categoryName?.value} 
+                            onChange={handleSelectCategory}/>
                             <label htmlFor={categoryName?.value}>{categoryName?.label}</label>
                           </div>
                         )

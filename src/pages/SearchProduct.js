@@ -16,7 +16,7 @@ const SearchProduct = () => {
       const dataResponse = await response.json()
 
       setLoading(false)
-      setData(dataResponse.data)
+      setData(dataResponse?.data)
       
     }
 
