@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
-import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay'
 import summeryApi from '../common'
 import VerticalSearchProduct from '../components/VerticalSearchProduct'
 
 const ProductCategory = () => {
 
-    const params = useParams()
+    
     const [data,setData] = useState([])
     const navigate = useNavigate()
     const [loading,setLoading] = useState(false)
@@ -15,12 +14,10 @@ const ProductCategory = () => {
     const searchUrl = new URLSearchParams(location.search)
     const categoryListUrlInArray = searchUrl.getAll('category')
 
-
     const categoryListObject = {}
     categoryListUrlInArray.forEach(el=>{
       categoryListObject[el] = true
     })
-
     
     const [selectCategory, setSelectCategory] = useState(categoryListObject)
     const [filterCategoryList, setFilterCategoryList] = useState([])
@@ -39,10 +36,7 @@ const ProductCategory = () => {
 
       const responseData = await response.json()
       setData(responseData?.data || [])
-
       setLoading(false);
-
-      console.log('responseData', responseData)
     }
 
     const handleSelectCategory = (e) =>{
@@ -79,9 +73,7 @@ const ProductCategory = () => {
         return `category=${el}&&`
       })
 
-      console.log('urlFormat',urlFormat.join(''))
-      navigate('/product-category?'+urlFormat.join(''))
-      //product-category?category=furniture&&category=airpods
+      navigate('/product-category?'+urlFormat.join(''))    
     },[selectCategory])
   return (
     <div className='container mx-auto p-4'>
@@ -130,12 +122,15 @@ const ProductCategory = () => {
                 </div>
             </div>
             {/**right side {products}*/}
-            <div>
-                {
-                  data.length !== 0 &&  (
-                    <VerticalSearchProduct  loading={loading} data={data}/>
-                  ) 
-                }
+            <div className='px-4' >
+              <p className='font-medium text-slate-800 text-lg my-2'>Search Results: {data.length}</p>
+                <div className='min-h-[calc(100vh-120px)] overflow-y-scroll max-h-[calc(100vh-120px)]'>
+                  {
+                    data.length !== 0 &&  (
+                      <VerticalSearchProduct  loading={loading} data={data}/>
+                    ) 
+                  }
+                </div>
             </div>
         </div>      
     </div>
