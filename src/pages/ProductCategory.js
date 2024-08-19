@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import AllCategoryProductDisplay from '../components/AllCategoryProductDisplay'
-import VerticalProductCard from '../components/VerticalProductCard'
 import summeryApi from '../common'
 import VerticalSearchProduct from '../components/VerticalSearchProduct'
 
@@ -10,16 +9,18 @@ const ProductCategory = () => {
 
     const params = useParams()
     const [data,setData] = useState([])
+    const navigate = useNavigate()
     const [loading,setLoading] = useState(false)
     const location = useLocation()
     const searchUrl = new URLSearchParams(location.search)
     const categoryListUrlInArray = searchUrl.getAll('category')
 
-    const categoryListObject = {}
 
+    const categoryListObject = {}
     categoryListUrlInArray.forEach(el=>{
       categoryListObject[el] = true
     })
+
     
     const [selectCategory, setSelectCategory] = useState(categoryListObject)
     const [filterCategoryList, setFilterCategoryList] = useState([])
@@ -68,6 +69,19 @@ const ProductCategory = () => {
       }).filter(el => el)
 
       setFilterCategoryList(arrayOfCategories)
+
+
+      const urlFormat = arrayOfCategories.map(el=>{
+        if ((arrayOfCategories.length - 1) ===index) {
+          return `category=${el}`
+        }
+
+        return `category=${el}&&`
+      })
+
+      console.log('urlFormat',urlFormat)
+      navigate('/product-category?')
+      //product-category?category=furniture&&category=airpods
     },[selectCategory])
   return (
     <div className='container mx-auto p-4'>
