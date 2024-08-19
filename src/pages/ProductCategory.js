@@ -71,7 +71,7 @@ const ProductCategory = () => {
       setFilterCategoryList(arrayOfCategories)
 
 
-      const urlFormat = arrayOfCategories.map(el=>{
+      const urlFormat = arrayOfCategories.map((el,index)=>{
         if ((arrayOfCategories.length - 1) ===index) {
           return `category=${el}`
         }
@@ -79,8 +79,8 @@ const ProductCategory = () => {
         return `category=${el}&&`
       })
 
-      console.log('urlFormat',urlFormat)
-      navigate('/product-category?')
+      console.log('urlFormat',urlFormat.join(''))
+      navigate('/product-category?'+urlFormat.join(''))
       //product-category?category=furniture&&category=airpods
     },[selectCategory])
   return (
