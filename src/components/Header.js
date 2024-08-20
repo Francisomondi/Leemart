@@ -19,10 +19,10 @@ const Header = () => {
 
   const navigate = useNavigate()
   const searchInput = useLocation()
-  const [search,setSearch] = useState(searchInput?.search?.split('=')[1])
+  const URLsearch = new URLSearchParams(searchInput?.search)
+  const searchQuery = URLsearch.getAll('q')
 
-  console.log('searchInput', searchInput?.search.split('=')[1])
-
+  const [search,setSearch] = useState(searchQuery)
 
 const user = useSelector(state=>state?.user?.user)
 //console.log('payload',user)
