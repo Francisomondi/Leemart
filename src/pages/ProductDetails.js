@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import summeryApi from '../common'
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
@@ -56,8 +56,7 @@ const ProductDetails = () => {
     setData(dataResponse?.data)
     setActiveImage(dataResponse?.data?.productImage[0])
   }
-   console.log('data', data)
-
+   
   useEffect(()=>{
     fetchProductDetails()
   },[params])
@@ -67,6 +66,7 @@ const ProductDetails = () => {
   }
 
   const {fetchUserAddToCart} = useContext(Context)
+  const navigate = useNavigate()
 
   const handleAddToCart = async(e,id)=>{
       await addToCart(e,id)
@@ -92,6 +92,11 @@ const handleLeaveZoomOutImage = ()=>{
   setZoomImage(false)
 }
 
+const handleBuy = async(e,id)=>{
+  await addToCart(e,id)
+  fetchUserAddToCart()
+  navigate('/cart')
+}
   return (
     <div className='container mx-auto p-4'>
       <div className='min-h-[200px] flex flex-col lg:flex-row gap-2'>
@@ -126,10 +131,9 @@ const handleLeaveZoomOutImage = ()=>{
               loading ? (
                <div className='flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full'>
                   {
-                     productListLoading.map(el => {
+                     productListLoading.map((el,index) => {
                       return(
-                        <div className='h-20 w-20 bg-slate-200 rounded animate-pulse' key={'loading image'}>
-                         
+                        <div className='h-20 w-20 bg-slate-200 rounded animate-pulse' key={'loading image'+index}>                        
                         </div>
                       )
                     })
@@ -209,7 +213,12 @@ const handleLeaveZoomOutImage = ()=>{
           </div>
 
           <div className='flex items-center gap-3 my-2'>
-            <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] text-red-600 font-medium hover:bg-red-600 hover:text-white'>Buy</button>
+            <button 
+              className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] text-red-600 font-medium hover:bg-red-600 hover:text-white'
+              onClick={(e)=>{handleBuy(e,data?._id)}}
+              >
+              Buy
+            </button>
             <button 
               className='border-2 border-red-600 rounded px-3 py-1 min-w-[150px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white'
               onClick={(e)=>{handleAddToCart(e,data?._id)}}>
