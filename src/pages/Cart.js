@@ -12,7 +12,7 @@ const Cart = () => {
   const loadingCart = new Array(context.cartProductCount).fill(null)
 
   const fetchData = async()=>{
-      //setLoading(true)
+    
       const response  = await fetch(summeryApi.viewCartProduct.url,{
         method: summeryApi.viewCartProduct.method,
         credentials: 'include',
@@ -20,7 +20,7 @@ const Cart = () => {
           'content-type' : 'application/json'
         },
       })
-      //setLoading(false)
+      
 
       const responseData = await response.json()
 
@@ -29,9 +29,15 @@ const Cart = () => {
       }
   }
 
+  const handleLoading = async()=>{
+    await fetchData()
+  }
+
   useEffect(()=>{
-    fetchData()
+    setLoading(true)
+    handleLoading()
     setLoading(false)
+    
   },[])
 
   const increaseCartQty = async (id,qty)=>{

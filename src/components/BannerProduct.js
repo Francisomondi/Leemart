@@ -1,16 +1,16 @@
-import image1 from "../assets/banner/img1.webp";
-import image2 from "../assets/banner/img2.webp";
-import image3 from "../assets/banner/img3.jpg";
-import image4 from "../assets/banner/img4.jpg";
-import image5 from "../assets/banner/img5.webp";
+import image1 from "../assets/banner/aaah.png";
+import image2 from "../assets/banner/ass1.png";
+import image3 from "../assets/banner/absa.png";
+import image4 from "../assets/banner/ad.png";
+import image5 from "../assets/banner/arr.png";
 
 
 
-import image1mobile from "../assets/banner/img1_mobile.jpg";
-import image2mobile from "../assets/banner/img2_mobile.webp";
-import image3mobile from "../assets/banner/img3_mobile.jpg";
-import image4mobile from "../assets/banner/img4_mobile.jpg";
-import image5mobile from "../assets/banner/img5_mobile.png";
+import image1mobile from "../assets/banner/aaahMobile.png";
+import image2mobile from "../assets/banner/ass1Mobile.png";
+import image3mobile from "../assets/banner/absaMobile.png";
+import image4mobile from "../assets/banner/adMobile.png";
+import image5mobile from "../assets/banner/arrMobile.png";
 import { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
@@ -57,13 +57,13 @@ const BannerProduct = () => {
         </div>
 
         {/**Desktop and tablets version */}
-       <div className="hidden md:flex h-full w-full overflow-hidden">
+       <div className="hidden md:flex h-full w-full overflow-hidden rounded">
             {
                     desktopImages.map((imageUrl,index)=>{
                         return(
-                            <div className="w-full h-full min-w-full min-h-full transition-all" key={imageUrl} style={{transform: `translateX(-${currentImage * 100}%)`}}>
-                            <img src={imageUrl} alt="banner image1" className="w-full h-full"/>     
-                        </div>
+                            <div className="w-full h-full min-w-full min-h-full overflow-hidden transition-all" key={imageUrl} style={{transform: `translateX(-${currentImage * 100}%)`}}>
+                                <img src={imageUrl} alt="banner image1" className="w-full h-full object-cover"/>     
+                            </div>
                         )
                     })
                 }
