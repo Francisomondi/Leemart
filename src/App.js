@@ -28,11 +28,7 @@ const [cartProductCount, setCartProductCount] = useState(0)
 
       if (userData.success) {
         dispatch(setUserDetails(userData.data))
-      }
-      //console.log('data-user', userData);
-       
-     
-      
+      }  
     } catch (error) {
       console.error('Error fetching user details:', error);
       toast.error('Error fetching user details: ' + error.message);
@@ -73,8 +69,7 @@ const [cartProductCount, setCartProductCount] = useState(0)
         <ToastContainer position='top-center'/>
         <Header />
         <main className='min-h-[calc(100vh-120px)] pt-16'>
-          <Outlet />
-          
+          <Outlet />         
         </main>
         <Footer />
       </Context.Provider>

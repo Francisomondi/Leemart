@@ -22,17 +22,15 @@ const Login = () => {
 
   const handleOnChange = (e)=>{
     const {name,value} = e.target
-    setData((preve)=>{
+    setData((prev)=>{
       return{
-        ...preve,
+        ...prev,
         [name]: value
       }
     })
-
-
   }
 
-  console.log("form data" ,data)
+  //console.log("form data" ,data)
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -43,8 +41,7 @@ const Login = () => {
       headers: {
          'Content-Type': 'application/json'
       },  
-      body: JSON.stringify(data)
-      
+      body: JSON.stringify(data)    
     })
 
     const dataApi = await dataResponse.json()
@@ -102,15 +99,15 @@ const Login = () => {
                    </div>
                 </div>
                 <Link to={'/forgot-password'} 
-                   className='block w-fit ml-auto hover:underline hover:text-red-600'>
+                   className='block w-fit ml-auto hover:underline hover:text-red-900'>
                      Forgot password?
                 </Link>
                 
               </div>
-              <button className='bg-red-600 hover:bg-red-700 text-white w-full px-6 py-2 max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-4'>Login</button>
+              <button className='bg-red-900 hover:bg-red-600 text-white w-full px-6 py-2 max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-4'>Login</button>
             </form>
 
-            <p className='my-5'>Do not have an account? <Link to={'/sign-up'} className='hover:text-red-700 hover:underline'>SignUp</Link></p>
+            <p className='my-5'>Do not have an account? <Link to={'/sign-up'} className='hover:text-red-900 hover:underline'>Sign Up</Link></p>
         </div>
       </div>
       

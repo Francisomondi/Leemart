@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import Icon from './Icon' //as logo
+import logo from "../assets/logo.png";
 import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -63,7 +63,10 @@ const handleSearch = (e) =>{
     <header className='h-16 shadow-md bg-white fixed w-full z-40'>
         <div className='h-full container mx-auto flex items-center px-4 justify-between'>
             <div className=''>
-              <Link to={"/"}><Icon w={90} h={50}/> {/* as logo*/}</Link>
+              <Link to={"/"}>
+              <img src={logo} width={150} height={90}/>
+              
+              </Link>
             </div>
 
             <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2 '>
@@ -73,7 +76,7 @@ const handleSearch = (e) =>{
                 className='w-full outline-none  cursor-pointer'
                 onChange={handleSearch} 
                 value={search}/>
-              <div className='text-lg min-w-[60px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
+              <div className='text-lg min-w-[60px] h-8 bg-red-900 hover:bg-red-700 flex items-center justify-center rounded-r-full text-white'>
                   <FiSearch />
               </div>
             </div>
@@ -124,7 +127,7 @@ const handleSearch = (e) =>{
                 user?._id &&(
                   <Link to={'cart'} className='text-2xl cursor-pointer relative'>
                     <span><MdAddShoppingCart /></span>
-                    <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                    <div className='bg-red-900 hover:bg-red-700 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
                     <p className='text-sm'>{context?.cartProductCount}</p>
                   </div>
               </Link>
@@ -135,10 +138,10 @@ const handleSearch = (e) =>{
               <div>
                 {
                   user?._id?(
-                      <button onClick={handleSignOut} className='px-3 py-1 text-white bg-red-600 hover:bg-red-800  rounded-full'>log out</button>
+                      <button onClick={handleSignOut} className='px-3 py-1 text-white bg-red-900 hover:bg-red-700  rounded-full'>log out</button>
                   ):(
                     <Link to={"/login"}>
-                      <button className='px-3 py-1 text-white bg-red-600 hover:bg-red-800  rounded-full'>log in</button>
+                      <button className='px-3 py-1 text-white bg-red-900 hover:bg-red-700 rounded-full'>log in</button>
                   </Link>
                   )
                 }

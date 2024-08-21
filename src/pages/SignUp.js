@@ -156,12 +156,12 @@ const handleUploadPic = async(e)=>{
                 
               </div>
               <button 
-                className='bg-red-600 hover:bg-red-700 text-white w-full px-6 py-2 max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-4'>
+                className='bg-red-900 hover:bg-red-700 text-white w-full px-6 py-2 max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-4'>
                 Sign Up
               </button>
             </form>
 
-            <p className='my-5'> Have an account? <Link to={'/login'} className='hover:text-red-700 hover:underline'>Login</Link></p>
+            <p className='my-5'> Have an account? <Link to={'/login'} className='hover:text-red-900 hover:underline'>Login</Link></p>
         </div>
       </div>
       
