@@ -11,32 +11,38 @@ const Cart = () => {
 
   const loadingCart = new Array(context.cartProductCount).fill(null)
 
-  const fetchData = async()=>{
-    
-      const response  = await fetch(summeryApi.viewCartProduct.url,{
+  const fetchData = async () => {
+    try {
+      const response = await fetch(summeryApi.viewCartProduct.url, {
         method: summeryApi.viewCartProduct.method,
         credentials: 'include',
         headers: {
-          'content-type' : 'application/json'
-        },
+          'content-type': 'application/json'
+        }
       })
-      
-
       const responseData = await response.json()
-
+  
       if (responseData.success) {
         setData(responseData.data)
+      } else {
+        console.error("Failed to load cart data:", responseData.message);
       }
+    } catch (error) {
+      console.error("Error loading cart data:", error);
+    } finally {
+      setLoading(false);
+    }
   }
+  
 
   const handleLoading = async()=>{
     await fetchData()
+    setLoading(false);
   }
 
   useEffect(()=>{
     setLoading(true)
     handleLoading()
-    setLoading(false)
     
   },[])
 
@@ -115,7 +121,7 @@ const Cart = () => {
       <div className='text-center text-lg py-2 my-3'>
           {
             data.length === 0 && !loading && (
-              <p className='bg-white py-5'>No data found </p>
+              <p className='bg-white py-5'>Your cart is empty </p>
             )
           }
       </div>
@@ -144,23 +150,23 @@ const Cart = () => {
                     </div>
                     <div className='px-4 py-2 relative'>
                       {/**Delete cart product */}
-                      <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' 
+                      <div className='absolute right-0 text-red-900 rounded-full p-2 hover:bg-red-700 hover:text-white cursor-pointer' 
                             onClick={()=>deleteCartProduct(product?._id)}>
                         <MdDeleteForever/>
                       </div>
                       <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{productItem?.productName}</h2>
                       <p className='capitalize'>{productItem?.category}</p>
                       <div className='flex items-center justify-between'>
-                        <p className='text-red-600 font-medium text-lg'>{displayCurrency(productItem?.sellingPrice)}</p>
+                        <p className='text-red-900 font-medium text-lg'>{displayCurrency(productItem?.sellingPrice)}</p>
                         <p className='text-slate-600 font-semibold text-lg'>{displayCurrency(productItem?.sellingPrice * product?.quantity)}</p>
                       </div>
                       <div className='flex items-center gap-3 mt-1'>
-                        <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
+                        <button className='border border-red-900 text-red-900 hover:bg-red-900 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
                           onClick={()=>decreaseCartQty(product?._id ,product?.quantity)}>
                             -
                         </button>
                         <span>{product.quantity}</span>
-                        <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
+                        <button className='border border-red-900 text-red-900 hover:bg-red-900 hover:text-white w-6 h-6 flex justify-center items-center rounded' 
                           onClick={()=>increaseCartQty(product?._id ,product?.quantity)}>
                             +
                         </button>

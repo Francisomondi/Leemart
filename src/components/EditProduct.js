@@ -98,7 +98,7 @@ const EditProduct = ({onClose,productData,fetchData}) => {
 
             <div className='flex justify-between items-center'>   
                 <h2 className='font-bold text-lg'>Edit product</h2> 
-                <div className='w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer' onClick={onClose}
+                <div className='w-fit ml-auto text-2xl hover:text-red-900 cursor-pointer' onClick={onClose}
                       >
                     <IoClose />
                 </div>
@@ -195,7 +195,7 @@ const EditProduct = ({onClose,productData,fetchData}) => {
                     })
 
                   ):(
-                      <p className='text-red-600 text-xs'>Upload Images...</p>
+                      <p className='text-red-900 text-xs'>Upload Images...</p>
                   )
                 }
                
@@ -234,7 +234,7 @@ const EditProduct = ({onClose,productData,fetchData}) => {
 
               </textarea>
 
-              <button className='px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-800'>Edit Product</button>
+              <button className='px-3 py-2 bg-red-900 text-white mb-10 hover:bg-red-700'>Edit Product</button>
 
             </form>            
         </div>

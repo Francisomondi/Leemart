@@ -97,7 +97,7 @@ const UploadProduct = ({onClose,fetchData}) => {
 
             <div className='flex justify-between items-center'>   
                 <h2 className='font-bold text-lg'>Upload products</h2> 
-                <div className='w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer' onClick={onClose}
+                <div className='w-fit ml-auto text-2xl hover:text-red-900 cursor-pointer' onClick={onClose}
                       >
                     <IoClose />
                 </div>
@@ -194,7 +194,7 @@ const UploadProduct = ({onClose,fetchData}) => {
                     })
 
                   ):(
-                      <p className='text-red-600 text-xs'>Upload Images...</p>
+                      <p className='text-red-900 text-xs'>Upload Images...</p>
                   )
                 }
                
@@ -233,7 +233,7 @@ const UploadProduct = ({onClose,fetchData}) => {
 
               </textarea>
 
-              <button className='px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-800'>Upload Product</button>
+              <button className='px-3 py-2 bg-red-900 text-white mb-10 hover:bg-red-700'>Upload Product</button>
 
             </form>            
         </div>

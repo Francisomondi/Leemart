@@ -50,7 +50,7 @@ const AllCategoryProductDisplay = ({category, heading}) => {
                                     </h2>
                                     <p className='capitalize text-slate-500 p-1 animate-pulse rounded-full bg-slate-200 py-2'></p> 
                                     <div className='flex gap-3'>
-                                        <p className='text-red-600 font-medium p-1 animate-pulse rounded-full bg-slate-200 w-full py-2'></p>
+                                        <p className='text-red-900 font-medium p-1 animate-pulse rounded-full bg-slate-200 w-full py-2'></p>
                                         <p className='text-slate-500 line-through p-1 animate-pulse rounded-full bg-slate-200 w-full py-2'></p>                        
                                         
                                     </div>  
@@ -78,11 +78,11 @@ const AllCategoryProductDisplay = ({category, heading}) => {
                                     </h2>
                                     <p className='capitalize text-slate-500'>{product?.category}</p> 
                                     <div className='flex gap-3'>
-                                        <p className='text-red-600 font-medium'>{ displayCurrency(product.sellingPrice) }</p>
+                                        <p className='text-red-900 font-medium'>{ displayCurrency(product.sellingPrice) }</p>
                                         <p className='text-slate-500 line-through'>{ displayCurrency(product.price) }</p>                        
                                         
                                     </div>  
-                                    <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full' onClick={(e)=>{handleAddToCart(e,product?._id)}}>Add to Card</button>
+                                    <button className='text-sm bg-red-900 hover:bg-red-700 text-white px-3 py-1 rounded-full' onClick={(e)=>{handleAddToCart(e,product?._id)}}>Add to Card</button>
                                                  
                                 </div>
                             </Link> 

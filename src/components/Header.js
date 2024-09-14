@@ -124,7 +124,7 @@ const handleSearch = (e) =>{
             
               </div>
               {
-                user?._id &&(
+                user?._id && (
                   <Link to={'cart'} className='text-2xl cursor-pointer relative'>
                     <span><MdAddShoppingCart /></span>
                     <div className='bg-red-900 hover:bg-red-700 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
