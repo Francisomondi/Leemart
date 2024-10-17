@@ -7,6 +7,7 @@ import { MdDeleteForever } from "react-icons/md";
 const Cart = () => {
   const [data,setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [phone, setPhone] = useState(''); 
   const context = useContext(Context)
 
   const loadingCart = new Array(context.cartProductCount).fill(null)
@@ -116,6 +117,37 @@ const Cart = () => {
   const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0);
   const totalPrice = data.reduce((previousValue, currentValue) => previousValue + (currentValue.quantity * currentValue?.productId?.sellingPrice),0 )
 
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);  // Update phone state on input change
+  };
+
+  //handle form submit
+  const handleFormSubmit = async(e)=>{
+    e.preventDefault()
+    const url= 'http://localhost:8000/api/stk'
+
+    const response = await fetch(url,{
+      method: 'post',
+        credentials: 'include',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          
+          phone: phone,
+          amount: totalPrice
+          
+        })
+    })
+
+    const responseData = await response.json();
+  if (responseData.success) {
+    // Handle successful payment
+    alert('Payment initiated successfully!');
+  } else {
+    console.error("Error processing payment:", responseData.message);
+  }
+  }
   return (
     <div className='container mx-auto'>
       <div className='text-center text-lg py-2 my-3'>
@@ -200,7 +232,22 @@ const Cart = () => {
                 <p>{ displayCurrency(totalPrice) }</p>
               </div>
 
-              <button className='bg-blue-600 p-2 text-white w-full'>Pay Now</button>
+
+              <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                <p>Phone</p>
+                <form onClick={handleFormSubmit}>
+                <input 
+                    type='number' 
+                    name='phone'
+                    placeholder='Enter your M-pesa phone number...' 
+                    value={data.phone}
+              
+                    onChange={handlePhoneChange}
+                    />
+                </form>
+              </div>
+
+              <button className='bg-blue-600 p-2 text-white w-full' onClick={handleFormSubmit}>Pay Now</button>
 
             </div>
           )
