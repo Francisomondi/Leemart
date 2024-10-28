@@ -80,7 +80,14 @@ const summeryApi= {
         url:`${BackendDomain}/api/filter-product`,
          method: 'post'
         
+    },
+    stripePayment: {
+        url:`${BackendDomain}/api/checkout`,
+         method: 'post'
+        
     }
+
+    
 }
 
 export default summeryApi

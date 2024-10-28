@@ -144,9 +144,29 @@ const Cart = () => {
   if (responseData.success) {
     // Handle successful payment
     alert('Payment initiated successfully!');
+    
   } else {
     console.error("Error processing payment:", responseData.message);
   }
+  }
+
+  const handleCardPayment = async() =>{
+    const response = await fetch(summeryApi.stripePayment.url,{
+      method: summeryApi.stripePayment.method,
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          cardItems: data
+        }
+      )
+
+    })
+
+    const responseData = await response.json()
+    console.log('payment response', responseData)
   }
   return (
     <div className='container mx-auto'>
@@ -211,48 +231,53 @@ const Cart = () => {
            }
         </div>
 
-        {/**total cart count calculation */}
+        {/**summery total cart count calculation */}
+           {
+            data[0] && (
+              <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+                  {
+                      loading ? (
+                        <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
+                          total
+                        </div>
+                      ):(
+                        <div className='h-36 bg-white mx-auto' >
+                          <h2 className='text-white bg-red-900 px-4 py-1'>Summery</h2>
+                          <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                            <p>Quantity</p>
+                            <p>{totalQty}</p>
+                          </div>
+                          <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                            <p>Total price</p>
+                            
+                            <p>{ displayCurrency(totalPrice) }</p>
+                          </div>
 
-       <div className='mt-5 lg:mt-0 w-full max-w-sm'>
-       {
-          loading ? (
-            <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
-              total
-            </div>
-          ):(
-            <div className='h-36 bg-white mx-auto' >
-              <h2 className='text-white bg-red-900 px-4 py-1'>Summery</h2>
-              <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                <p>Quantity</p>
-                <p>{totalQty}</p>
+
+                          <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                            <p>Phone</p>
+                            <form onClick={handleFormSubmit}>
+                            <input 
+                                type='number' 
+                                name='phone'
+                                placeholder='Enter your M-pesa phone number...' 
+                                value={data.phone}
+                          
+                                onChange={handlePhoneChange}
+                                />
+                            </form>
+                          </div>
+
+                          <button className='bg-blue-600 p-2 text-white w-full mb-1' onClick={handleFormSubmit}>Pay via M-pesa</button>
+                          <button className='bg-blue-600 p-2 text-white w-full' onClick={handleCardPayment}>Pay via Card</button>
+
+                        </div>
+                      )
+                  }
               </div>
-              <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                <p>Total price</p>
-                
-                <p>{ displayCurrency(totalPrice) }</p>
-              </div>
-
-
-              <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                <p>Phone</p>
-                <form onClick={handleFormSubmit}>
-                <input 
-                    type='number' 
-                    name='phone'
-                    placeholder='Enter your M-pesa phone number...' 
-                    value={data.phone}
-              
-                    onChange={handlePhoneChange}
-                    />
-                </form>
-              </div>
-
-              <button className='bg-blue-600 p-2 text-white w-full' onClick={handleFormSubmit}>Pay Now</button>
-
-            </div>
-          )
-        }
-       </div>
+            )
+           }
+       
        
       </div>
     </div>
