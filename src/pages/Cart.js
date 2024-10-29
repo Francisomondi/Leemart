@@ -3,6 +3,7 @@ import summeryApi from '../common'
 import Context from '../context'
 import displayCurrency from '../helpers/displayCurrency'
 import { MdDeleteForever } from "react-icons/md";
+import {loadStripe} from '@stripe/stripe-js';
 
 const Cart = () => {
   const [data,setData] = useState([])
@@ -151,6 +152,8 @@ const Cart = () => {
   }
 
   const handleCardPayment = async() =>{
+    console.log('process.env.REACT_APP_STRIPE_PUBLIC_KEY', process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+    const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
     const response = await fetch(summeryApi.stripePayment.url,{
       method: summeryApi.stripePayment.method,
       credentials: 'include',
@@ -166,6 +169,10 @@ const Cart = () => {
     })
 
     const responseData = await response.json()
+
+    if (responseData?.id) {
+      stripePromise.redirectToCheckout({sessionId: responseData.id})
+    }
     console.log('payment response', responseData)
   }
   return (
