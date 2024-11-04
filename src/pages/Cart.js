@@ -152,7 +152,7 @@ const Cart = () => {
   }
 
   const handleCardPayment = async() =>{
-    ///console.log('process.env.REACT_APP_STRIPE_PUBLIC_KEY', process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+    
     const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
     const response = await fetch(summeryApi.stripePayment.url,{
       method: summeryApi.stripePayment.method,
